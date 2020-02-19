@@ -30,3 +30,8 @@ Here are the design files that were added:
 1. JoinLeagueScreen.jpg is a sketch of the screen used for a user to make their matchup picks and assign their point values for a league they are joining. Again, once a league begins these picks and point values cannot be changed.
 
 Next up I need to brush up a bit on using the Contentful site and programming against it, then I will add some data to contentful for the site to use, and then do some research on using React Content. I will be coding soon!
+
+### 2/17/2020
+I have spent time the last couple of weeks defining the structure of my data and creating data for this React app on the [Contentful](https://www.contentful.com/) web site. Contentful is an API-first CMS that I used during my last React exercise to store some data for the app I created. I would recommend it for a central place to put some data for any type of software application.
+
+I also created the bare-bones React application tonight. I have to brush up on my React context and then I will be ready to start coding this application.
