@@ -1,0 +1,27 @@
+import React from 'react'
+import {Link} from 'react-router-dom';
+
+export default class Navbar extends React.Component {
+    render() {
+        return (
+            <nav>
+                <div>
+                <ul>
+                    <li>
+                        <Link to="/">Home</Link>
+                    </li>
+                    <li>
+                        <Link to="/joinleague">Join League</Link>
+                    </li>
+                    <li>
+                        <Link to="/addleague">Add League</Link>
+                    </li>
+                    <li>
+                        <Link to="/createseason">Create Season</Link>
+                    </li>
+                </ul>
+                </div>
+            </nav>
+        )
+    }
+}
