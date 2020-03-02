@@ -1,16 +1,29 @@
 import React, { Component } from 'react'
-import Client from 'contentful'
+import Client from './Contentful'
 
 const PoolDataContext = React.createContext();
 
 class PoolDataProvider extends Component {
     state = {
-        // TODO: Create state for leagues, matchups, picks, season, and user
+        // FUTURE: Split context up by content type? Can nest contexts
+        currentSeason: null
     }
 
     getData = async () => {
         try {
-            // TODO: Load all types of data for user
+            
+            // load current season
+            let seasonResponse = await Client.getEntries({
+                content_type: 'season'
+            })
+
+            let currentSeason = seasonResponse.items.find(season => season.isCurrent === true)
+            
+
+            this.setState({
+                currentSeason
+            })
+
         }
         catch (error) {
             console.log(error)
@@ -18,13 +31,25 @@ class PoolDataProvider extends Component {
         
     }
 
+    getLeagueTypes() {
+        return [
+            {
+                text: "Thursday Night",
+                value: "ThursdayNight"
+            },
+            {
+                text: "Monday Night",
+                value: "MondayNight"
+            }];
+    }
+ 
     componentDidMount() {
         this.getData()
     }
 
     render() {
         return (
-            <PoolDataContext.Provider value={{ ...this.state/*, methods */ }}>
+            <PoolDataContext.Provider value={{ ...this.state, getLeagueTypes: this.getLeagueTypes }}>
                 {this.props.children}
             </PoolDataContext.Provider>
         )
