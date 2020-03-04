@@ -17,17 +17,25 @@ class PoolDataProvider extends Component {
                 content_type: 'season'
             })
 
-            let currentSeason = seasonResponse.items.find(season => season.isCurrent === true)
+            let seasons = this.formatSeasons(seasonResponse.items)
             
 
             this.setState({
-                currentSeason
+                currentSeason: seasons.find(season => season.isCurrent === true)
             })
 
         }
         catch (error) {
             console.log(error)
         }
+    }
+
+    formatSeasons(items) {
+        let seasons = items.map(item => {
+            return {...item.fields}
+        })
+
+        return seasons;
     }
 
     getLeagueTypes() {

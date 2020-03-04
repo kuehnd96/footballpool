@@ -23,9 +23,9 @@ class AddLeague extends React.Component {
                     <div>
                         <label>Season: {currentSeason.year}</label>
                         <br/>
-                        <label>League Creation Cutoff Date: {currentSeason.LeagueCreationCutoffDate}</label>
+                        <label>League Creation Cutoff Date: {currentSeason.leagueCreationCutoffDate}</label>
                         <br/>
-                        <label>League Join Cutoff Date: {currentSeason.LeagueJoinCutoffDate}</label>
+                        <label>League Join Cutoff Date: {currentSeason.leagueJoinCutoffDate}</label>
                     </div>
                 </form>
             </div>
