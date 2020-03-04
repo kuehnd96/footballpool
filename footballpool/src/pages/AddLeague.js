@@ -1,11 +1,11 @@
 import React from 'react'
-import {useContext} from 'react' // NOTE: React hook
 import {PoolDataContext} from '../dataContext'
 
 class AddLeague extends React.Component {
+    static contextType = PoolDataContext
+    
     render() {
-        const context = useContext(PoolDataContext)
-        const {currentSeason, getLeagueTypes} = context
+        const {currentSeason, getLeagueTypes} = this.context
         // NOTE: Leagues can only be created for the current season
 
         let leagueTypes = getLeagueTypes()

@@ -4,8 +4,8 @@ import Client from './Contentful'
 const PoolDataContext = React.createContext();
 
 class PoolDataProvider extends Component {
+    // FUTURE: Split context up by content type? Can nest contexts
     state = {
-        // FUTURE: Split context up by content type? Can nest contexts
         currentSeason: null
     }
 
@@ -28,7 +28,6 @@ class PoolDataProvider extends Component {
         catch (error) {
             console.log(error)
         }
-        
     }
 
     getLeagueTypes() {
