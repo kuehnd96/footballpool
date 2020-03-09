@@ -35,3 +35,7 @@ Next up I need to brush up a bit on using the Contentful site and programming ag
 I have spent time the last couple of weeks defining the structure of my data and creating data for this React app on the [Contentful](https://www.contentful.com/) web site. Contentful is an API-first CMS that I used during my last React exercise to store some data for the app I created. I would recommend it for a central place to put some data for any type of software application.
 
 I also created the bare-bones React application tonight. I have to brush up on my React context and then I will be ready to start coding this application.
+
+### 3/8/2020
+
+I am having a ton of fun creating my first React app. I am coding on Sunday and Tuesday nights and am on the lookout for more time during the week to code. With a very demanding client at work and my duties as a husband and father my programming time is limited these days. I have also been thinking of some educational exercises I could do down the road with this app that would help me learn more about the React world. These include replacing the Contentful backend with a Node JS backend, replacing React Context with Redux, using more React Hooks, and upping my CSS game with some design and styling. Once again there are so many things to do and learn with programming but not enough time outside of work to do it.
