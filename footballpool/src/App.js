@@ -13,7 +13,6 @@ function App() {
   return (
     <>
       <Navbar />
-      <h1>Welcome</h1>
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/leaguedetails/:leagueid" component={LeagueDetails}/>

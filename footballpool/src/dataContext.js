@@ -4,7 +4,7 @@ import Client from './Contentful'
 const PoolDataContext = React.createContext();
 
 class PoolDataProvider extends Component {
-    // FUTURE: Split context up by content type? Can nest contexts
+    // TODO: Split context up by content type? Can nest contexts
     state = {
         currentSeason: null
     }
@@ -30,6 +30,8 @@ class PoolDataProvider extends Component {
         }
     }
 
+    // Seasons
+    
     formatSeasons(items) {
         let seasons = items.map(item => {
             return {...item.fields}
@@ -49,6 +51,17 @@ class PoolDataProvider extends Component {
                 value: "MondayNight"
             }];
     }
+
+    // / Seasons
+
+    // League
+
+    addLeague(newLeague) {
+        // FUTURE: Add league
+        // Can't add a league with contentful
+    }
+
+    // / League
  
     componentDidMount() {
         this.getData()
@@ -56,7 +69,7 @@ class PoolDataProvider extends Component {
 
     render() {
         return (
-            <PoolDataContext.Provider value={{ ...this.state, getLeagueTypes: this.getLeagueTypes }}>
+            <PoolDataContext.Provider value={{ ...this.state, getLeagueTypes: this.getLeagueTypes, addLeague: this.addLeague }}>
                 {this.props.children}
             </PoolDataContext.Provider>
         )
