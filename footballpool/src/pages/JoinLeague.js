@@ -1,9 +1,22 @@
 import React from 'react'
 
 class JoinLeague extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            leagueId: this.props.match.params.leagueid // NOTE: React router is passing this prop
+        }
+    }
+    
     render() {
         return (
-            <h1>Join League</h1>
+            <div>
+                <h1>Join League</h1>
+                <form>
+
+                </form>
+            </div>
         )
     }
 }

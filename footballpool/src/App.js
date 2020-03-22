@@ -16,7 +16,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/leaguedetails/:leagueid" component={LeagueDetails}/>
-        <Route exact path="/joinleague" component={JoinLeague}/>
+        <Route exact path="/joinleague/:leagueid" component={JoinLeague}/>
         <Route exact path="/addleague" component={AddLeague}/>
         <Route exact path="/createseason" component={CreateSeason} />
         <Route exact path="/updatematchups/:seasonid" component={UpdateMatchups}/>

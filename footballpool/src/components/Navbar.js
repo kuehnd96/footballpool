@@ -11,7 +11,7 @@ export default class Navbar extends React.Component {
                         <Link to="/">Home</Link>
                     </li>
                     <li>
-                        <Link to="/joinleague">Join League</Link>
+                        <Link to="/joinleague/1">Join League</Link>
                     </li>
                     <li>
                         <Link to="/addleague">Add League</Link>
