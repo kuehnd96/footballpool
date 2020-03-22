@@ -1,5 +1,6 @@
 import React from 'react'
 import {PoolDataContext} from '../dataContext'
+import {Redirect} from "react-router-dom";
 
 class AddLeague extends React.Component {
     constructor() {
@@ -7,7 +8,8 @@ class AddLeague extends React.Component {
 
         this.state = {
             leagueType: null,
-            leagueName: null
+            leagueName: null,
+            hasSubmitted: false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -35,9 +37,19 @@ class AddLeague extends React.Component {
         };
 
         addLeague(newLeague);
+        
+        this.setState(() => ({
+            hasSubmitted: true
+        }), null);
     }
     
     render() {
+        // If the user has submitted the new league then go back to main screen
+        // Source: https://tylermcginnis.com/react-router-programmatically-navigate/
+        if (this.state.hasSubmitted === true) {
+            return <Redirect to='/'/>
+        }
+
         const {currentSeason, getLeagueTypes} = this.context
         // NOTE: Leagues can only be created for the current season
 
