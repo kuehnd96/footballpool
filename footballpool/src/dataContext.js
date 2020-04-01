@@ -56,12 +56,60 @@ class PoolDataProvider extends Component {
 
     // League
 
+    formatLeagues(items) {
+        let leagues = items.map(item => {
+            return {...item.fields}
+        })
+
+        return leagues;
+    }
+
     addLeague(newLeague) {
         // FUTURE: Add league
         // Can't add a league with contentful
     }
 
+    getLeague = async (leagueId) => {
+        
+        // load league by identifier
+        let leagueResponse = await Client.getEntries({
+            content_type: 'league',
+            'fields.id': leagueId
+        })
+
+        let leagues = this.formatLeagues(leagueResponse.items)
+
+        if (leagues.length > 0) {
+            return leagues[0];
+        }
+        else {
+            return null;
+        }
+    }
+
     // / League
+
+    // Matchups
+
+    formatMatchups(items) {
+        let matchups = items.map(item => {
+            return {...item.fields}
+        })
+
+        return matchups;
+    }
+
+    getMatchups = async (seasonId) => {
+        // load matchups for a season
+        let matchupResponse = await Client.getEntries({
+            content_type: 'matchup',
+            'fields.id': seasonId
+        })
+
+        return this.formatMatchups(matchupResponse.items)
+    }
+
+    // / Matchups
  
     componentDidMount() {
         this.getData()
@@ -69,7 +117,10 @@ class PoolDataProvider extends Component {
 
     render() {
         return (
-            <PoolDataContext.Provider value={{ ...this.state, getLeagueTypes: this.getLeagueTypes, addLeague: this.addLeague }}>
+            <PoolDataContext.Provider value={{ ...this.state, 
+                 getLeagueTypes: this.getLeagueTypes, 
+                 addLeague: this.addLeague,
+                 getLeague: this.getLeague }}>
                 {this.props.children}
             </PoolDataContext.Provider>
         )
