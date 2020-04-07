@@ -120,7 +120,8 @@ class PoolDataProvider extends Component {
             <PoolDataContext.Provider value={{ ...this.state, 
                  getLeagueTypes: this.getLeagueTypes, 
                  addLeague: this.addLeague,
-                 getLeague: this.getLeague }}>
+                 getLeague: this.getLeague,
+                 getMatchups: this.getMatchups }}>
                 {this.props.children}
             </PoolDataContext.Provider>
         )
