@@ -39,3 +39,9 @@ I also created the bare-bones React application tonight. I have to brush up on m
 ### 3/8/2020
 
 I am having a ton of fun creating my first React app. I am coding on Sunday and Tuesday nights and am on the lookout for more time during the week to code. With a very demanding client at work and my duties as a husband and father my programming time is limited these days. I have also been thinking of some educational exercises I could do down the road with this app that would help me learn more about the React world. These include replacing the Contentful backend with a Node JS backend, replacing React Context with Redux, using more React Hooks, and upping my CSS game with some design and styling. Once again there are so many things to do and learn with programming but not enough time outside of work to do it.
+
+### 4/14/2020
+
+I hope everyone is doing well and staying healthy during this pandemic. There have been many times when I thought it would help to just put this React training aside but I have decided to keep going. I think coding this application in React is proving to be a coping mechanism during these tough times. I urge anyone out there to find what helps them get through these tought times as well.
+
+Lately I have been working on the screen that allows a user to join a league by making their picks and assigning point values. The algorithm for validating that the user has assigned point values 1-17 to 17 matchups is something I have thought about even before my React training. I am excited to jump into it tonight. Be well.
