@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router-dom';
+//import {Link} from 'react-router-dom';
 import {PoolDataContext} from '../dataContext'
-import AddLeaguePicks from '../components/AddLeaguePicks'
+//import AddLeaguePicks from '../components/AddLeaguePicks'
 
 class JoinLeague extends React.Component {
     constructor(props) {
@@ -9,29 +9,30 @@ class JoinLeague extends React.Component {
 
         this.state = {
             leagueId: this.props.match.params.leagueid, // NOTE: React router is passing this prop
-            league: null
+            league: null,
+            matchups: null
         }
-
-
     }
 
     static contextType = PoolDataContext
 
     async componentDidMount() {
         
-        const {getLeague} = this.context
+        const { currentSeason, getMatchups } = this.context
 
-        const league = await getLeague(this.state.leagueId)
+        //const league = await getLeague(this.state.leagueId)
+        const matchups = await getMatchups(currentSeason.id)
         
-        if (league) {
+        if (matchups) {
             this.setState({
-                league: league
+                //league: league,
+                matchups: matchups
             })
         }
-
     }
     
     render() {
+        /*
         if (!this.state.league) {
             return (
                 <div>
@@ -41,13 +42,12 @@ class JoinLeague extends React.Component {
                 </div>
             )
         }
+        */
 
         return (
             <div>
-                <h1>Join League: {this.state.league.name}</h1>
-                <form>
-                    <AddLeaguePicks leagueId={this.state.leagueId} matchCount={17}/>
-                </form>
+                <h1>Join League: {this.state.matchups.length}</h1>
+                <br/>
             </div>
         )
     }

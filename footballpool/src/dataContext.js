@@ -19,7 +19,6 @@ class PoolDataProvider extends Component {
 
             let seasons = this.formatSeasons(seasonResponse.items)
             
-
             this.setState({
                 currentSeason: seasons.find(season => season.isCurrent === true)
             })
@@ -100,10 +99,12 @@ class PoolDataProvider extends Component {
     }
 
     getMatchups = async (seasonId) => {
+        
         // load matchups for a season
         let matchupResponse = await Client.getEntries({
             content_type: 'matchup',
-            'fields.id': seasonId
+            'fields.seasonid.sys.contentType.sys.id': 'seasonId',
+            'fields.seasonid.fields.id[all]': seasonId
         })
 
         return this.formatMatchups(matchupResponse.items)
