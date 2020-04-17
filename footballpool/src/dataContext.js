@@ -103,8 +103,8 @@ class PoolDataProvider extends Component {
         // load matchups for a season
         let matchupResponse = await Client.getEntries({
             content_type: 'matchup',
-            'fields.seasonid.sys.contentType.sys.id': 'seasonId',
-            'fields.seasonid.fields.id[all]': seasonId
+            'fields.seasonId.sys.contentType.sys.id': 'season',
+            'fields.seasonId.fields.id': seasonId
         })
 
         return this.formatMatchups(matchupResponse.items)

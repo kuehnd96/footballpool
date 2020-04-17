@@ -7,18 +7,17 @@ class AddLeaguePicks extends React.Component {
 
         this.state = {
             leagueId: props.leagueId,
-            matchCount: props.matchCount,
             matchups: props.matchups
         }
 
-        //this.addPicks = this.addPicks.bind(this);
+        this.addPicks = this.addPicks.bind(this);
     }
 
     static contextType = PoolDataContext
 
-    //addPicks() {
+    addPicks() {
 
-    //}
+    }
 
     render() {
 
