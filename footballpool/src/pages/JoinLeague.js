@@ -22,7 +22,7 @@ class JoinLeague extends React.Component {
         const { currentSeason, getLeague, getMatchups } = this.context
 
         const league = await getLeague(this.state.leagueId)
-        const matchups = await getMatchups(currentSeason.id)
+        const matchups = await getMatchups(currentSeason.id, league.type)
         
         this.setState({
             league: league,
@@ -56,7 +56,7 @@ class JoinLeague extends React.Component {
                 <div>
                     <h1>Join League {this.state.league.name}</h1>
                     <br/>
-                    <AddLeaguePicks leagueId={this.state.league.id} matchups={this.state.matchups} />
+                    <AddLeaguePicks leagueId={this.state.league.id} matchups={this.state.matchups} leagueType={this.state.league.type} />
                 </div>
             )
         }

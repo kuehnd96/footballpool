@@ -14,13 +14,14 @@ class PoolDataProvider extends Component {
             
             // load current season
             let seasonResponse = await Client.getEntries({
-                content_type: 'season'
+                content_type: 'season',
+                'fields.isCurrent': true
             })
 
             let seasons = this.formatSeasons(seasonResponse.items)
             
             this.setState({
-                currentSeason: seasons.find(season => season.isCurrent === true)
+                currentSeason: seasons[0] // there can only be one (highlander)
             })
 
         }
@@ -98,16 +99,32 @@ class PoolDataProvider extends Component {
         return matchups;
     }
 
-    getMatchups = async (seasonId) => {
+    getMatchups = async (seasonId, type) => {
         
         // load matchups for a season
         let matchupResponse = await Client.getEntries({
             content_type: 'matchup',
             'fields.seasonId.sys.contentType.sys.id': 'season',
-            'fields.seasonId.fields.id': seasonId
+            'fields.seasonId.fields.id': seasonId,
+            'fields.type': type
         })
 
-        return this.formatMatchups(matchupResponse.items)
+        return this.formatMatchups(matchupResponse.items).sort(this.sortMatchupsByWeek)
+    }
+
+    sortMatchupsByWeek(a, b) {
+        const weekA = a.week
+        const weekB = b.week
+
+        let comparison = 0
+
+        if (weekA > weekB) {
+            comparison = 1
+        } else if (weekA < weekB) {
+            comparison = -1
+        }
+        
+        return comparison
     }
 
     // / Matchups
