@@ -25,24 +25,42 @@ class AddLeaguePicks extends React.Component {
 
     static contextType = PoolDataContext
 
-    addPicks() {
-        
+    addPicks(e) {
+        e.preventDefault()
+
         var picks = this.state.picks
         
         // Make sure all point values are represented once
-        var pickPointMap = new Array(this.state.matchupCount+1)
+        var pickPointMap = [this.state.matchupCount+1] // not using index 0
         var isValid = true
 
-        for (var i=0; i < picks.length; i++) {
-            var points = picks[i].points
+        pickPointMap = pickPointMap.fill(false)
+        pickPointMap[0] = undefined
 
-            if (pickPointMap[points]) { 
+        for (var i=0; i < picks.length; i++) {
+            var pick = picks[i]
+            var points = pick.points
+
+            if (points === 0) { 
+                // No points specified
+                pick.error = "Missing point value"
+                isValid = false
+            }
+            else if ((points < 1) || (points > this.state.matchupCount)) {
+                // Pick must be 1 - number of matchups
+                pick.error = "Pick must be 1 to " + this.state.matchupCount
+                isValid = false
+            }
+            else if (pickPointMap[points]) { 
                 // points have already been picked
-                picks[i].isDuplicate = true
+                pick.error = "Duplicate"
                 isValid = false
             }
             else {
+                
+                // Mark point value as used
                 pickPointMap[points] = true
+                pick.error = null
             }
         }
 
@@ -50,12 +68,19 @@ class AddLeaguePicks extends React.Component {
             picks: picks
         })
 
+        if (!pickPointMap.every(pointValueUsed => {
+            return pointValueUsed === true
+        })) {
+            isValid = false
+        }
+
         if (isValid) {
-            // Call data context
+            alert('Picks valid!')
         }
     }
 
     pickChanged = event => {
+
         const target = event.target;
         let value, pickId, pick
         
@@ -74,6 +99,7 @@ class AddLeaguePicks extends React.Component {
         } else { 
             
             // changed point value
+            
             value = parseInt(target.value)
             pickId = parseInt(event.target.name.replace("input", ""));
             
@@ -81,7 +107,7 @@ class AddLeaguePicks extends React.Component {
 
             if (pick)
             {
-                pick.points = value
+                pick.points = isNaN(value) ? 0 : value
             }
         }
     }
@@ -99,9 +125,9 @@ class AddLeaguePicks extends React.Component {
                 <td>{matchup.date}</td>
                 <td>{matchup.week}</td>
                 <td><input type="checkbox" id={pickInputId} name={pickInputId} key={index} onChange={this.pickChanged} /></td>
-                <td><input type="number" maxLength="2" id={pointsInputId} name={pickInputId} key={index} onChange={this.pickChanged} /></td>
+                <td><input type="number" maxLength="2" id={pointsInputId} name={pickInputId} key={index} onBlur={this.pickChanged} /></td>
                 <td>{pick.error && 
-                       <span>{pick.error}</span>
+                       <span key={index}>{pick.error}</span>
                     }</td>
             </tr>
         })
@@ -112,17 +138,19 @@ class AddLeaguePicks extends React.Component {
                 <br/>
                 <br/>
                 <form>
-                    <table cellpadding="3">
-                        <tr>
-                            <td>Home Team</td>
-                            <td>Away Team</td>
-                            <td>Date</td>
-                            <td>Week</td>
-                            <td>Pick Home Team?</td>
-                            <td>Points</td>
-                            <td>Duplicate Points?</td>
-                        </tr>
-                        {matchupTableRows}
+                    <table cellPadding="3">
+                        <tbody>
+                            <tr>
+                                <td>Home Team</td>
+                                <td>Away Team</td>
+                                <td>Date</td>
+                                <td>Week</td>
+                                <td>Pick Home Team?</td>
+                                <td>Points</td>
+                                <td>Error?</td>
+                            </tr>
+                            {matchupTableRows}
+                        </tbody>
                 </table>
                 <br />
                 <button onClick={this.addPicks}>Save Picks</button>
