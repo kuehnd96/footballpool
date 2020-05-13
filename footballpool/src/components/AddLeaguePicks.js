@@ -31,11 +31,10 @@ class AddLeaguePicks extends React.Component {
         var picks = this.state.picks
         
         // Make sure all point values are represented once
-        var pickPointMap = [this.state.matchupCount+1] // not using index 0
+        var pickPointMap = [this.state.matchupCount]
         var isValid = true
 
         pickPointMap = pickPointMap.fill(false)
-        pickPointMap[0] = undefined
 
         for (var i=0; i < picks.length; i++) {
             var pick = picks[i]
@@ -51,15 +50,14 @@ class AddLeaguePicks extends React.Component {
                 pick.error = "Pick must be 1 to " + this.state.matchupCount
                 isValid = false
             }
-            else if (pickPointMap[points]) { 
+            else if (pickPointMap[points-1]) { 
                 // points have already been picked
                 pick.error = "Duplicate"
                 isValid = false
             }
             else {
-                
                 // Mark point value as used
-                pickPointMap[points] = true
+                pickPointMap[points-1] = true
                 pick.error = null
             }
         }
@@ -119,7 +117,7 @@ class AddLeaguePicks extends React.Component {
             const pointsInputId = `${matchup.id}input`
             const pick = this.state.picks.find(pick => pick.id === matchup.id)
             
-            return <tr>
+            return <tr key={index}>
                 <td>{matchup.homeTeam}</td>
                 <td>{matchup.awayTeam}</td>
                 <td>{matchup.date}</td>
