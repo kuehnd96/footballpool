@@ -45,3 +45,7 @@ I am having a ton of fun creating my first React app. I am coding on Sunday and 
 I hope everyone is doing well and staying healthy during this pandemic. There have been many times when I thought it would help to just put this React training aside but I have decided to keep going. I think coding this application in React is proving to be a coping mechanism during these tough times. I urge anyone out there to find what helps them get through these tought times as well.
 
 Lately I have been working on the screen that allows a user to join a league by making their picks and assigning point values. The algorithm for validating that the user has assigned point values 1-17 to 17 matchups is something I have thought about even before my React training. I am excited to jump into it tonight. Be well.
+
+### 5/12/2020
+
+I took last week off from coding. I think I needed it to come back to it this week. I am determined to keep going on this app and finish my React training. I have a Dev Ops book awaiting me next. I hope everyone is staying safe and healthy during this pandemic.
