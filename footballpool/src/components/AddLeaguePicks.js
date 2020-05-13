@@ -73,7 +73,17 @@ class AddLeaguePicks extends React.Component {
         }
 
         if (isValid) {
-            alert('Picks valid!')
+            let userPicks = picks.map(pick => {
+                return {
+                    leagueId: this.props.leagueId,
+                    userId: this.props.userId,
+                    matchupId: pick.id,
+                    isHomePick: pick.isHomePick,
+                    points: pick.points
+                }
+            })
+
+            this.props.addPicksAction(userPicks)
         }
     }
 

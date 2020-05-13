@@ -128,6 +128,16 @@ class PoolDataProvider extends Component {
     }
 
     // / Matchups
+
+    // Picks
+
+    addPicks(picks) {
+        // FUTURE: Add user picks for joining a league
+        // Can't add picks with contentful
+        let thing = 'test';
+    }
+
+    // / Picks
  
     componentDidMount() {
         this.getData()
@@ -139,7 +149,8 @@ class PoolDataProvider extends Component {
                  getLeagueTypes: this.getLeagueTypes, 
                  addLeague: this.addLeague,
                  getLeague: this.getLeague,
-                 getMatchups: this.getMatchups }}>
+                 getMatchups: this.getMatchups,
+                 addPicks: this.addPicks }}>
                 {this.props.children}
             </PoolDataContext.Provider>
         )
