@@ -127,6 +127,12 @@ class PoolDataProvider extends Component {
         return comparison
     }
 
+    addMatchups(matchups) {
+        // FUTURE: Add for new season
+        // Can't add picks with contentful
+        let thing = 'test'
+    }
+
     // / Matchups
 
     // Picks
@@ -134,7 +140,6 @@ class PoolDataProvider extends Component {
     addPicks(picks) {
         // FUTURE: Add user picks for joining a league
         // Can't add picks with contentful
-        let thing = 'test';
     }
 
     // / Picks
@@ -150,6 +155,7 @@ class PoolDataProvider extends Component {
                  addLeague: this.addLeague,
                  getLeague: this.getLeague,
                  getMatchups: this.getMatchups,
+                 addMatchups: this.addMatchups,
                  addPicks: this.addPicks }}>
                 {this.props.children}
             </PoolDataContext.Provider>
