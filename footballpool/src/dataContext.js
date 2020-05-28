@@ -52,6 +52,12 @@ class PoolDataProvider extends Component {
             }];
     }
 
+    addSeason(newSeason) {
+        // FUTURE: Add for new season
+        // Can't add picks with contentful
+        let thing = 'test'
+    }
+
     // / Seasons
 
     // League
@@ -133,6 +139,107 @@ class PoolDataProvider extends Component {
         let thing = 'test'
     }
 
+    getMatchupTeams() {
+        return [
+            {
+                city: 'Green Bay'
+            },
+            {
+                city: 'Chicago'
+            },
+            {
+                city: 'Minnesota'
+            },
+            {
+                city: 'Detroit'
+            },
+            {
+                city: 'Carolina'
+            },
+            {
+                city: 'New Orleans'
+            },
+            {
+                city: 'Atlanta'
+            },
+            {
+                city: 'Tampa Bay'
+            },
+            {
+                city: 'Dallas'
+            },
+            {
+                city: 'Washington'
+            },
+            {
+                city: 'Philadelphia'
+            },
+            {
+                city: 'New York Giants'
+            },
+            {
+                city: 'Los Angeles Rams'
+            },
+            {
+                city: 'Seattle'
+            },
+            {
+                city: 'San Francisco'
+            },
+            {
+                city: 'Arizona'
+            },
+            {
+                city: 'Denver'
+            },
+            {
+                city: 'Los Angeles Chargers'
+            },
+            {
+                city: 'Kansas City'
+            },
+            {
+                city: 'Las Vegas'
+            },
+            {
+                city: 'Pittsburgh'
+            },
+            {
+                city: 'Cinncinnati'
+            },
+            {
+                city: 'Cleveland'
+            },
+            {
+                city: 'Baltimore'
+            },
+            {
+                city: 'New England'
+            },
+            {
+                city: 'New York Jets'
+            },
+            {
+                city: 'Miami'
+            },
+            {
+                city: 'Buffalo'
+            },
+            {
+                city: 'Indianapolis'
+            },
+            {
+                city: 'Houston'
+            },
+            {
+                city: 'Jacksonville'
+            },
+            {
+                city: 'Tennessee'
+            }
+        ]
+    }
+
     // / Matchups
 
     // Picks
@@ -141,6 +248,8 @@ class PoolDataProvider extends Component {
         // FUTURE: Add user picks for joining a league
         // Can't add picks with contentful
     }
+
+
 
     // / Picks
  
@@ -152,11 +261,14 @@ class PoolDataProvider extends Component {
         return (
             <PoolDataContext.Provider value={{ ...this.state, 
                  getLeagueTypes: this.getLeagueTypes, 
+                 getMatchupTypes: this.getLeagueTypes,
                  addLeague: this.addLeague,
                  getLeague: this.getLeague,
                  getMatchups: this.getMatchups,
                  addMatchups: this.addMatchups,
-                 addPicks: this.addPicks }}>
+                 addPicks: this.addPicks,
+                 addSeason: this.addSeason,
+                 getMatchupTeams: this.getMatchupTeams }}>
                 {this.props.children}
             </PoolDataContext.Provider>
         )
