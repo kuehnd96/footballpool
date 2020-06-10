@@ -133,7 +133,7 @@ class AddLeaguePicks extends React.Component {
                 <td>{matchup.date}</td>
                 <td>{matchup.week}</td>
                 <td><input type="checkbox" id={pickInputId} name={pickInputId} key={index} onChange={this.pickChanged} /></td>
-                <td><input type="number" maxLength="2" id={pointsInputId} name={pickInputId} key={index} onBlur={this.pickChanged} /></td>
+                <td><input type="number" maxLength="2" id={pointsInputId} name={pointsInputId} key={index} onBlur={this.pickChanged} /></td>
                 <td>{pick.error && 
                        <span key={index}>{pick.error}</span>
                     }</td>
