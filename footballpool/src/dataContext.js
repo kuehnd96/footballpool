@@ -55,7 +55,8 @@ class PoolDataProvider extends Component {
     addSeason(newSeason) {
         // FUTURE: Add for new season
         // Can't add picks with contentful
-        let thing = 'test'
+        console.log('Adding new season: ')
+        console.log(newSeason)
     }
 
     // / Seasons
@@ -136,7 +137,8 @@ class PoolDataProvider extends Component {
     addMatchups(matchups) {
         // FUTURE: Add for new season
         // Can't add picks with contentful
-        let thing = 'test'
+        console.log('Adding new matchups for a new season: ')
+        console.log(matchups.length)
     }
 
     getMatchupTeams() {
