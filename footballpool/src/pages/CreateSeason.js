@@ -64,10 +64,8 @@ class CreateSeason extends React.Component {
                 isValid = false
                 newMatchup.error = "Home and away team can't match"
             }
-            
-            if (newMatchup.week > this.state.maxWeek) {
-                isValid = false
-                newMatchup.error = "Week number can't be more than " + this.state.maxWeek
+            else {
+                newMatchup.error = ''
             }
         }
 
@@ -79,7 +77,8 @@ class CreateSeason extends React.Component {
                 isCurrent: false,
                 year: this.state.seasonYear,
                 leagueCreationCutoff: this.state.leagueCreationCutoff,
-                leagueJoinCutoff: this.state.leagueJoinCutoff
+                leagueJoinCutoff: this.state.leagueJoinCutoff,
+                matchups: this.state.newMatchups
             };
             
             addSeason(newSeason);
@@ -97,32 +96,35 @@ class CreateSeason extends React.Component {
 
     addBlankMatchup() {
         let nextMatchupId = this.state.nextMatchupId + 1
+        let matchups = this.state.newMatchups
 
-        //?: There has to be a cleaner way to add to an array that is in state
-        this.state.newMatchups.push({
+        //?: Is there has to be a cleaner way to add to an array that is in state
+        matchups.push({
             id: nextMatchupId,
             homeTeam: 'Green Bay',
-            awayTeam: 'Chicago',
-            type: 'MondayNight',
-            date: new Date(),
+            awayTeam: 'Green Bay',
+            type: 'ThursdayNight',
+            date: '',
             week: 1,
             error: ''
         })
 
         this.setState(() => ({
-            nextMatchupId: nextMatchupId
-        }), null)
+            nextMatchupId: nextMatchupId,
+            newMatchups: matchups
+        }))
     }
 
     removeNewMatchup(obsoleteMatchupId) {
-        var obsoleteMatchup = this.state.newMatchups.find(matchup => matchup.id === obsoleteMatchupId)
+        let matchups = this.state.newMatchups
+        var obsoleteMatchup = matchups.find(matchup => matchup.id === obsoleteMatchupId)
 
         if (obsoleteMatchup) {
-            let obsoleteIndex = this.state.newMatchups.indexOf(obsoleteMatchup)
-            let updatedMatchups = this.state.newMatchups.splice(obsoleteIndex, 1)
-
+            let obsoleteIndex = matchups.indexOf(obsoleteMatchup)
+            matchups.splice(obsoleteIndex, 1)
+            
             this.setState(() => ({
-                newMatchups: updatedMatchups
+                newMatchups: matchups
             }), null)
         }
     }
@@ -135,14 +137,12 @@ class CreateSeason extends React.Component {
         if (target !== undefined) {
             
             value = target.value
-            console.log('target name: ' + target.name)
-            console.log(this.state.newMatchups)
         
             if (target.type === "select-one") {
             
                 if (target.name.startsWith(this.homeTeamInputPrefix)) {
                     // home team changed
-                    matchupId = parseInt(target.name.replace(this.hometeamInputPrefix, ''))
+                    matchupId = parseInt(target.name.replace(this.homeTeamInputPrefix, ''))
                     matchup = this.state.newMatchups.find(matchup => matchup.id === matchupId)
                     matchup.homeTeam = value
                 }
@@ -158,6 +158,12 @@ class CreateSeason extends React.Component {
                     matchup = this.state.newMatchups.find(matchup => matchup.id === matchupId)
                     matchup.type = value
                 }
+                else if (target.name.startsWith(this.weekInputPrefix)) {
+                    // week changed
+                    matchupId = parseInt(target.name.replace(this.weekInputPrefix, ''))
+                    matchup = this.state.newMatchups.find(matchup => matchup.id === matchupId)
+                    matchup.week = parseInt(value)
+                }
             }
             else { // text input changed
                 
@@ -166,14 +172,7 @@ class CreateSeason extends React.Component {
                     matchup = this.state.newMatchups.find(matchup => matchup.id === matchupId)
                     matchup.date = new Date(value)
                 }
-                else if (target.name.startsWith(this.weekInputPrefix)) {
-                    matchupId = parseInt(target.name.replace(this.weekInputPrefix, ''))
-                    matchup = this.state.newMatchups.find(matchup => matchup.id === matchupId)
-                    matchup.week = parseInt(value)
-                }
             }
-
-            console.log(matchup)
         }
     }
     
@@ -198,6 +197,11 @@ class CreateSeason extends React.Component {
             return <option value={matchupTeam.city} key={matchupTeam.city}>{matchupTeam.city}</option>
         })
 
+        let weekOptions = []
+        for (let i=1; i <= this.state.maxWeek; i++) {
+            weekOptions.push(<option value={i} key={i-1}>{i}</option>)
+        }
+
         let newMatchupRows = this.state.newMatchups.map((newMatchup, index) => {
             const dateInputId = this.dateInputPrefix + newMatchup.id
             const weekInputId = this.weekInputPrefix + newMatchup.id
@@ -207,23 +211,25 @@ class CreateSeason extends React.Component {
 
             return <tr key={index}>
                 <td>
-                    <input type="date" id={dateInputId} name={dateInputId} key={index} value={newMatchup.date} onChange={this.handleMatchupChange} />
+                    <input type="date" id={dateInputId} name={dateInputId} key={index} onChange={this.handleMatchupChange} />
                 </td>
                 <td>
-                    <input type="number" id={weekInputId} name={weekInputId} key={index} value={newMatchup.week} onChange={this.handleMatchupChange}/>
+                    <select id={weekInputId} name={weekInputId} key={index} onChange={this.handleMatchupChange}>
+                        {weekOptions}
+                    </select>
                 </td>
                 <td>
-                    <select id={homeTeamId} name={homeTeamId} key={index} value={newMatchup.homeTeam} onChange={this.handleMatchupChange}>
+                    <select id={homeTeamId} name={homeTeamId} key={index} onChange={this.handleMatchupChange}>
                             {matchupTeams}
                     </select>
                 </td>
                 <td>
-                    <select id={awayTeamId} name={awayTeamId} key={index} value={newMatchup.awayTeam} onChange={this.handleMatchupChange}>
+                    <select id={awayTeamId} name={awayTeamId} key={index} onChange={this.handleMatchupChange}>
                             {matchupTeams}
                     </select>
                 </td>
                 <td>
-                    <select id={typeId} name={typeId} key={index} value={newMatchup.type} onChange={this.handleMatchupChange}>
+                    <select id={typeId} name={typeId} key={index} onChange={this.handleMatchupChange}>
                             {matchupTypes}
                     </select>
                 </td>
@@ -240,17 +246,17 @@ class CreateSeason extends React.Component {
                 <form>
                     { /* Season Year */ }
                     <div>
-                        <label htmlFor="seasonYear">Season Year</label>
+                        <label htmlFor="seasonYear">Season Year: </label>
                         <input type="number" maxLength="4" name="seasonYear" id="seasonYear" value={this.state.seasonYear} onChange={this.handleChange}/>
                     </div>
                     { /* League Creation cutoff date */ }
                     <div>
-                        <label htmlFor="leagueCreationCutoff">League Creation Cutoff Date</label>
+                        <label htmlFor="leagueCreationCutoff">League Creation Cutoff Date: </label>
                         <input type="date" name="leagueCreationCutoff" id="leagueCreationCutoff" value={this.state.leagueCreationCutoff} onChange={this.handleChange}/>
                     </div>
                     { /* League Join cutoff date */ }
                     <div>
-                        <label htmlFor="leagueJoinCutoff">League Join Cutoff Date</label>
+                        <label htmlFor="leagueJoinCutoff">League Join Cutoff Date: </label>
                         <input type="date" name="leagueJoinCutoff" id="leagueJoinCutoff" value={this.state.leagueJoinCutoff} onChange={this.handleChange}/>
                     </div>
                     <div>

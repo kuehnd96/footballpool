@@ -7,8 +7,8 @@ class AddLeague extends React.Component {
         super()
 
         this.state = {
-            leagueType: null,
-            leagueName: null,
+            leagueType: 'ThursdayNight',
+            leagueName: '',
             hasSubmitted: false
         }
 
@@ -74,14 +74,14 @@ class AddLeague extends React.Component {
                     </div>
                     { /* Season edit */}
                     <div>
-                        <label htmlfor="leagueType">League Type</label>
+                        <label htmlFor="leagueType">League Type</label>
                         <select name="leagueType" id="leagueType" value={this.state.leagueType} onChange={this.handleChange}>
                             {leagueTypes}
                         </select>
                     </div>
                     { /* League Name */ }
                     <div>
-                        <label htmlfor="leagueName">League Name</label>
+                        <label htmlFor="leagueName">League Name</label>
                         <input type="text" name="leagueName" id="leagueName" value={this.state.leagueName} onChange={this.handleChange}/>
                     </div>
                     { /* Add button */ }
