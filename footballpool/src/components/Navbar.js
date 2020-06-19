@@ -17,7 +17,7 @@ export default class Navbar extends React.Component {
                         <Link to="/addleague">Add League</Link>
                     </li>
                     <li>
-                        <Link to="/createseason">Create Season</Link>
+                        <Link to="/seasons">Seasons</Link>
                     </li>
                 </ul>
                 </div>

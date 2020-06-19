@@ -59,6 +59,15 @@ class PoolDataProvider extends Component {
         console.log(newSeason)
     }
 
+    getSeasons= async () => {
+
+        let seasonResponse = await Client.getEntries({
+            content_type: 'season'
+        })
+
+        return this.formatSeasons(seasonResponse.items)
+    }
+
     // / Seasons
 
     // League
@@ -249,6 +258,8 @@ class PoolDataProvider extends Component {
     addPicks(picks) {
         // FUTURE: Add user picks for joining a league
         // Can't add picks with contentful
+        console.log('Adding new picks for joining a new league: ')
+        console.log(picks)
     }
 
 
@@ -270,6 +281,7 @@ class PoolDataProvider extends Component {
                  addMatchups: this.addMatchups,
                  addPicks: this.addPicks,
                  addSeason: this.addSeason,
+                 getSeasons: this.getSeasons,
                  getMatchupTeams: this.getMatchupTeams }}>
                 {this.props.children}
             </PoolDataContext.Provider>

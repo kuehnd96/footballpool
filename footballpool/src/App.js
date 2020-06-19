@@ -8,6 +8,7 @@ import AddLeague from './pages/AddLeague'
 import CreateSeason from './pages/CreateSeason'
 import UpdateMatchups from './pages/UpdateMatchups'
 import Navbar from './components/Navbar'
+import Seasons from './pages/Seasons'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route exact path="/addleague" component={AddLeague}/>
         <Route exact path="/createseason" component={CreateSeason} />
         <Route exact path="/updatematchups/:seasonid" component={UpdateMatchups}/>
+        <Route exact path="/seasons" component={Seasons}/>
         <Route component={Error} />
       </Switch> 
     </>
