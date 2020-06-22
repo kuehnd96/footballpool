@@ -59,13 +59,29 @@ class PoolDataProvider extends Component {
         console.log(newSeason)
     }
 
-    getSeasons= async () => {
+    getSeasons = async () => {
 
         let seasonResponse = await Client.getEntries({
             content_type: 'season'
         })
 
-        return this.formatSeasons(seasonResponse.items)
+        var seasons = this.formatSeasons(seasonResponse.items)
+        return seasons.sort(this.sortSeasonsByYear)
+    }
+
+    sortSeasonsByYear(a, b) {
+        const seasonAYear = parseInt(a.year)
+        const seasonBYear = parseInt(b.year)
+
+        let comparison = 0
+
+        if (seasonAYear > seasonBYear) {
+            comparison = 1
+        } else if (seasonAYear < seasonBYear) {
+            comparison = -1
+        }
+        
+        return comparison
     }
 
     // / Seasons

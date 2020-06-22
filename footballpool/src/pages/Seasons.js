@@ -5,38 +5,32 @@ import {Link} from 'react-router-dom';
 class Seasons extends React.Component {
     constructor() {
         super()
+
+        this.state = {
+            seasons: []
+        }
+    }
+    async componentDidMount() {
+        
+        const { getSeasons } = this.context
+        let seasons = await getSeasons()
+        
+        this.setState({
+            seasons: seasons
+        })
     }
 
     static contextType = PoolDataContext
 
-    sortSeasonsByYear(a, b) {
-        const seasonAYear = parseInt(a.year)
-        const seasonBYear = parseInt(b.year)
-
-        let comparison = 0
-
-        if (seasonAYear > seasonBYear) {
-            comparison = 1
-        } else if (seasonAYear < seasonBYear) {
-            comparison = -1
-        }
-        
-        return comparison
-    }
-
     render() {
-        
-        // TODO: Render a list of all seasons
-        const { getSeasons } = this.context
-        let seasons = getSeasons()
 
-        let seasonRows = seasons.sort(this.sortSeasonsByYear).map((season, index) => {
+        let seasonRows = this.state.seasons.map((season, index) => {
         
             return <tr key={index}>
                 <td>{season.year}</td>
+                <td>{season.isCurrent ? 'Yes' : 'No'}</td>
                 <td>{season.leagueCreationCutoffDate}</td>
                 <td>{season.leagueJoinCutoffDate}</td>
-                <td>{season.isCurrent ? 'Yes' : 'No'}</td>
             </tr>
         })
 
