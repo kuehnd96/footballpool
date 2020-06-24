@@ -133,13 +133,27 @@ class PoolDataProvider extends Component {
 
     getMatchups = async (seasonId, type) => {
         
-        // load matchups for a season
-        let matchupResponse = await Client.getEntries({
-            content_type: 'matchup',
-            'fields.seasonId.sys.contentType.sys.id': 'season',
-            'fields.seasonId.fields.id': seasonId,
-            'fields.type': type
-        })
+        let matchupResponse
+
+        if (type) {
+            
+            // load matchups for a season with a certain type
+            matchupResponse = await Client.getEntries({
+                content_type: 'matchup',
+                'fields.seasonId.sys.contentType.sys.id': 'season',
+                'fields.seasonId.fields.id': seasonId,
+                'fields.type': type
+            })
+        }
+        else { 
+
+            // load all matchups for a season regardless of type
+            matchupResponse = await Client.getEntries({
+                content_type: 'matchup',
+                'fields.seasonId.sys.contentType.sys.id': 'season',
+                'fields.seasonId.fields.id': seasonId
+            })
+        }
 
         return this.formatMatchups(matchupResponse.items).sort(this.sortMatchupsByWeek)
     }

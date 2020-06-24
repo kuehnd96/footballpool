@@ -25,12 +25,13 @@ class Seasons extends React.Component {
     render() {
 
         let seasonRows = this.state.seasons.map((season, index) => {
-        
+            
             return <tr key={index}>
                 <td>{season.year}</td>
                 <td>{season.isCurrent ? 'Yes' : 'No'}</td>
                 <td>{season.leagueCreationCutoffDate}</td>
                 <td>{season.leagueJoinCutoffDate}</td>
+                { season.isCurrent && <td><Link to="/seasons/update">Update Matchup Results</Link></td>}
             </tr>
         })
 
@@ -45,6 +46,7 @@ class Seasons extends React.Component {
                             <th>Is Current</th>
                             <th>League Creation Cutoff Date</th>
                             <th>League Join Cutoff Date</th>
+                            <th> </th>
                         </tr>
                         {seasonRows}
                     </tbody>

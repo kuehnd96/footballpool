@@ -6,9 +6,9 @@ import LeagueDetails from './pages/LeagueDetails'
 import JoinLeague from './pages/JoinLeague'
 import AddLeague from './pages/AddLeague'
 import CreateSeason from './pages/CreateSeason'
-import UpdateMatchups from './pages/UpdateMatchups'
 import Navbar from './components/Navbar'
 import Seasons from './pages/Seasons'
+import UpdateSeasons from './pages/UpdateSeason'
 
 function App() {
   return (
@@ -20,8 +20,8 @@ function App() {
         <Route exact path="/joinleague/:leagueid" component={JoinLeague}/>
         <Route exact path="/addleague" component={AddLeague}/>
         <Route exact path="/createseason" component={CreateSeason} />
-        <Route exact path="/updatematchups/:seasonid" component={UpdateMatchups}/>
         <Route exact path="/seasons" component={Seasons}/>
+        <Route exact path="/seasons/update" component={UpdateSeasons} />
         <Route component={Error} />
       </Switch> 
     </>
