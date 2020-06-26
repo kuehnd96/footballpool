@@ -175,9 +175,9 @@ class PoolDataProvider extends Component {
 
     addMatchups(matchups) {
         // FUTURE: Add for new season
-        // Can't add picks with contentful
+        // Can't add data with contentful
         console.log('Adding new matchups for a new season: ')
-        console.log(matchups.length)
+        console.log(matchups)
     }
 
     getMatchupTeams() {
@@ -281,6 +281,13 @@ class PoolDataProvider extends Component {
         ]
     }
 
+    updateMatchups(matchups) {
+        // FUTURE: Add for new season
+        // Can't update with contentful
+        console.log('Updating matchups for current season: ')
+        console.log(matchups)
+    }
+
     // / Matchups
 
     // Picks
@@ -309,6 +316,7 @@ class PoolDataProvider extends Component {
                  getLeague: this.getLeague,
                  getMatchups: this.getMatchups,
                  addMatchups: this.addMatchups,
+                 updateMatchups: this.updateMatchups,
                  addPicks: this.addPicks,
                  addSeason: this.addSeason,
                  getSeasons: this.getSeasons,
