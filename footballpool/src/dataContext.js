@@ -20,6 +20,7 @@ class PoolDataProvider extends Component {
 
             let seasons = this.formatSeasons(seasonResponse.items)
             
+            console.log('About to set current season in context.')
             this.setState({
                 currentSeason: seasons[0] // there can only be one (highlander)
             })
@@ -28,6 +29,10 @@ class PoolDataProvider extends Component {
         catch (error) {
             console.log(error)
         }
+    }
+
+    async componentDidMount() {
+        await this.getData()
     }
 
     // Seasons
@@ -117,6 +122,18 @@ class PoolDataProvider extends Component {
         else {
             return null;
         }
+    }
+
+    getCurrentSeasonLeagues = async () => {
+
+        // load all leagues for current seasion
+        let leagueResponse = await Client.getEntries({
+            content_type: 'league',
+            'fields.seasonId.sys.contentType.sys.id': 'season',
+            'fields.seasonId.fields.id': this.state.currentSeason.id,
+        })
+
+        return this.formatLeagues(leagueResponse.items)
     }
 
     // / League
@@ -302,10 +319,6 @@ class PoolDataProvider extends Component {
 
 
     // / Picks
- 
-    componentDidMount() {
-        this.getData()
-    }
 
     render() {
         return (
@@ -314,6 +327,7 @@ class PoolDataProvider extends Component {
                  getMatchupTypes: this.getLeagueTypes,
                  addLeague: this.addLeague,
                  getLeague: this.getLeague,
+                 getCurrentSeasonLeagues: this.getCurrentSeasonLeagues,
                  getMatchups: this.getMatchups,
                  addMatchups: this.addMatchups,
                  updateMatchups: this.updateMatchups,
