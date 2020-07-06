@@ -7,27 +7,19 @@ class Home extends React.Component {
         super()
 
         this.state = {
-            currentSeason: null,
             userLeagues: [],
             joinableLeagues: [],
             isLoading: true
         }
     }
 
-    //async componentDidMount() {
-
-        
-    //}
-
     /*
-    async componentDidUpdate(previous) {
+    async componentDidMount() {
 
-        console.log('Did update')
-        const {currentSeason, getCurrentSeasonLeagues, getMatchups} = this.context
+        const {currentSeason, dataAccess} = this.context
 
-        console.log('About to use current season from context.')
-        let seasonMatchups = await getMatchups(currentSeason.id)
-        let seasonLeagues = getCurrentSeasonLeagues()
+        let seasonMatchups = await dataAccess.getMatchups(currentSeason.id)
+        let seasonLeagues = await dataAccess.getCurrentSeasonLeagues()
     }
     */
 
