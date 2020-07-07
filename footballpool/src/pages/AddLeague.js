@@ -29,14 +29,14 @@ class AddLeague extends React.Component {
     }
 
     addLeague() {
-        const {addLeague} = this.context;
+        const {dataAccess} = this.context;
         
         var newLeague = {
             leagueType: this.state.leagueType,
             leagueName: this.state.leagueName
         };
 
-        addLeague(newLeague);
+        dataAccess.addLeague(newLeague);
         
         this.setState(() => ({
             hasSubmitted: true
@@ -50,10 +50,10 @@ class AddLeague extends React.Component {
             return <Redirect to='/'/>
         }
 
-        const {currentSeason, getLeagueTypes} = this.context
+        const {currentSeason, dataAccess} = this.context
         // NOTE: Leagues can only be created for the current season
 
-        let leagueTypes = getLeagueTypes()
+        let leagueTypes = dataAccess.getMatchupTypes()
 
         // map to JSX
         leagueTypes = leagueTypes.map(leagueType => {

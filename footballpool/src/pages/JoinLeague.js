@@ -20,10 +20,10 @@ class JoinLeague extends React.Component {
 
     async componentDidMount() {
         
-        const { currentSeason, getLeague, getMatchups } = this.context
+        const { currentSeason, dataAccess } = this.context
 
-        const league = await getLeague(this.state.leagueId)
-        const matchups = await getMatchups(currentSeason.id, league.type)
+        const league = await dataAccess.getLeague(this.state.leagueId)
+        const matchups = await dataAccess.getMatchups(currentSeason.id, league.type)
         
         this.setState({
             league: league,
@@ -34,7 +34,7 @@ class JoinLeague extends React.Component {
     
     render() {
         
-        const { addPicks } = this.context
+        const { dataAccess } = this.context
         
         if (!this.state.league) {
             return (
@@ -63,7 +63,7 @@ class JoinLeague extends React.Component {
                         leagueId={this.state.league.id} 
                         matchups={this.state.matchups} 
                         leagueType={this.state.league.type} 
-                        addPicksAction={(picks) => addPicks(picks)} 
+                        addPicksAction={(picks) => dataAccess.addPicks(picks)} 
                         userId={this.state.userId} />
                 </div>
             )

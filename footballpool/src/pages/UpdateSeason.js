@@ -20,9 +20,9 @@ class UpdateSeason extends React.Component {
      async componentDidMount() {
         
         // You can only edit matchups for the current season
-        const {currentSeason, getMatchups} = this.context
+        const {currentSeason, dataAccess} = this.context
 
-        var seasonMatchups = await getMatchups(currentSeason.id)
+        var seasonMatchups = await dataAccess.getMatchups(currentSeason.id)
 
         // Set each undefined value to false so the user doesn't have to interact with all checkboxes
         for (let i=0; i < seasonMatchups.length; i++) {
@@ -70,7 +70,7 @@ class UpdateSeason extends React.Component {
 
     saveMatchups() {
         
-        const { updateMatchups } = this.context
+        const { dataAccess } = this.context
 
         let updatedMatchups = []
         let matchup
@@ -85,7 +85,7 @@ class UpdateSeason extends React.Component {
             }
         }
 
-        updateMatchups(updatedMatchups)
+        dataAccess.updateMatchups(updatedMatchups)
 
         this.setState(() => ({
             hasSubmitted: true

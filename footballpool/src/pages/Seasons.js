@@ -12,8 +12,8 @@ class Seasons extends React.Component {
     }
     async componentDidMount() {
         
-        const { getSeasons } = this.context
-        let seasons = await getSeasons()
+        const { dataAccess } = this.context
+        let seasons = await dataAccess.getSeasons()
         
         this.setState({
             seasons: seasons

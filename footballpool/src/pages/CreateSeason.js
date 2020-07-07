@@ -71,7 +71,7 @@ class CreateSeason extends React.Component {
 
         if (isValid) {
             
-            const {addSeason} = this.context;
+            const { dataAccess } = this.context;
         
             var newSeason = {
                 isCurrent: false,
@@ -81,7 +81,7 @@ class CreateSeason extends React.Component {
                 matchups: this.state.newMatchups
             };
             
-            addSeason(newSeason);
+            dataAccess.addSeason(newSeason);
         
             this.setState(() => ({
                 hasSubmitted: true
@@ -183,16 +183,16 @@ class CreateSeason extends React.Component {
             return <Redirect to='/'/>
         }
 
-        const { getMatchupTypes, getMatchupTeams } = this.context
+        const { dataAccess } = this.context
 
-        let matchupTypes = getMatchupTypes()
+        let matchupTypes = dataAccess.getMatchupTypes()
 
         // map to JSX
         matchupTypes = matchupTypes.map(matchupType => {
             return <option value={matchupType.value} key={matchupType.value}>{matchupType.text}</option>
         })
 
-        let matchupTeams = getMatchupTeams()
+        let matchupTeams = dataAccess.getMatchupTeams()
         matchupTeams = matchupTeams.map(matchupTeam => {
             return <option value={matchupTeam.city} key={matchupTeam.city}>{matchupTeam.city}</option>
         })

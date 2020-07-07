@@ -1,5 +1,5 @@
 import React from "react"
-import {PoolDataContext} from '../dataContext'
+//import {PoolDataContext} from '../dataContext'
 
 class AddLeaguePicks extends React.Component {
     constructor(props) {
@@ -23,7 +23,7 @@ class AddLeaguePicks extends React.Component {
         this.pickChanged = this.pickChanged.bind(this);
     }
 
-    static contextType = PoolDataContext
+    //static contextType = PoolDataContext
 
     addPicks(e) {
         e.preventDefault()

@@ -4,7 +4,7 @@ export default function PoolDataAccess() {
     
     // TODO: Break this up into modules by data type
 
-    function getLeagueTypes() {
+    function getMatchupTypes() {
         return [
             {
                 text: "Thursday Night",
@@ -91,6 +91,7 @@ export default function PoolDataAccess() {
     function addLeague(newLeague) {
         // FUTURE: Add league
         // Can't add a league with contentful
+        console.log(newLeague)
     }
 
     async function getLeague(leagueId) {
@@ -307,7 +308,7 @@ export default function PoolDataAccess() {
 
     return  Object.freeze({
         getCurrentSeason,
-        getLeagueTypes,
+        getMatchupTypes,
         addSeason,
         getSeasons,
         addLeague,
@@ -320,6 +321,8 @@ export default function PoolDataAccess() {
         addPicks,
         formatLeagues,
         formatMatchups,
-        sortMatchupsByWeek
+        sortMatchupsByWeek,
+        sortSeasonsByYear,
+        formatSeasons
       });
 }
