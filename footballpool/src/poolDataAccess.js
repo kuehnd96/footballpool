@@ -112,13 +112,13 @@ export default function PoolDataAccess() {
         }
     }
 
-    async function getCurrentSeasonLeagues() {
+    async function getCurrentSeasonLeagues(currentSeasonId) {
 
         // load all leagues for current seasion
         let leagueResponse = await Client.getEntries({
             content_type: 'league',
-            'fields.seasonId.sys.contentType.sys.id': 'season',
-            'fields.seasonId.fields.id': this.state.currentSeason.id,
+            'fields.seasonid.sys.contentType.sys.id': 'season',
+            'fields.seasonid.fields.id': currentSeasonId,
         })
 
         return this.formatLeagues(leagueResponse.items)
@@ -304,6 +304,40 @@ export default function PoolDataAccess() {
         console.log(picks)
     }
 
+    async function getUserPicksForLeagues(userId, leagueIds) {
+
+        let leagueIdList = ''
+
+        for (let i=0; i<leagueIds.length; i++) {
+            
+            if (leagueIdList !== '') {
+                
+                leagueIdList += ','
+            }
+
+            leagueIdList += leagueIds[i]
+        }
+        
+        // load all picks for user and leagues
+        let picksResponse = await Client.getEntries({
+            content_type: 'pick',
+            'fields.userid.sys.contentType.sys.id': 'user',
+            'fields.userid.fields.id': userId,
+            'fields.leagueid.sys.contentType.sys.id': 'league',
+            'fields.leagueid.fields.id[in]': leagueIdList
+        })
+        
+        return formatPicks(picksResponse.items)
+    }
+
+    function formatPicks(items) {
+        let picks = items.map(item => {
+            return {...item.fields}
+        })
+
+        return picks;
+    }
+
     // / Picks
 
     return  Object.freeze({
@@ -319,6 +353,8 @@ export default function PoolDataAccess() {
         getMatchupTeams,
         updateMatchups,
         addPicks,
+        getUserPicksForLeagues,
+        formatPicks,
         formatLeagues,
         formatMatchups,
         sortMatchupsByWeek,
