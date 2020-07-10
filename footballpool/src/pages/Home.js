@@ -24,6 +24,7 @@ class Home extends React.Component {
         
         seasonLeagues.forEach(league => {
 
+            // Is user participating in the league?
             if (userPicks.some((pick) => {
             
                 return pick.leagueid.fields.id === league.id

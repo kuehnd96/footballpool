@@ -24,17 +24,6 @@ class UpdateSeason extends React.Component {
 
         var seasonMatchups = await dataAccess.getMatchups(currentSeason.id)
 
-        // Set each undefined value to false so the user doesn't have to interact with all checkboxes
-        for (let i=0; i < seasonMatchups.length; i++) {
-
-            let matchup = seasonMatchups[i]
-
-            if (matchup.didHomeTeamWin !== 'undefined') {
-
-                matchup.didHomeTeamWin = false
-            }
-        }
-
         this.setState({
             matchups : seasonMatchups,
             seasonYear: currentSeason.year,
@@ -48,23 +37,20 @@ class UpdateSeason extends React.Component {
 
         const target = event.target;
 
-        if (target.type === 'checkbox') {
+        let value, matchupId, matchup
+
+        value = target.value
+        matchupId = parseInt(event.target.name.replace("resultInput", ""));
+
+        matchup = this.state.matchups.find(matchup => matchup.id === matchupId)
+
+        if (matchup) {
             
-            let value, matchupId, matchup
+            matchup.didHomeTeamWin = value
 
-            value = target.checked
-            matchupId = parseInt(event.target.name.replace("resultInput", ""));
-
-            matchup = this.state.matchups.find(matchup => matchup.id === matchupId)
-
-            if (matchup) {
-            
-                matchup.didHomeTeamWin = value
-
-                this.setState({
-                    isLoading: false
-                })
-            }
+            this.setState({
+                isLoading: false
+            })
         }
     }
 
@@ -110,6 +96,11 @@ class UpdateSeason extends React.Component {
         }
         else
         {
+            let resultOptions = []
+            resultOptions.push(<option value='' key=''> </option>)
+            resultOptions.push(<option value='true' key='true'>Yes</option>)
+            resultOptions.push(<option value='false' key='false'>No</option>)
+
             let matchupRows = this.state.matchups.map((matchup, index) => {
                 
                 const resultInputId = "resultInput" + matchup.id
@@ -120,7 +111,11 @@ class UpdateSeason extends React.Component {
                     <td>{matchup.homeTeam}</td>
                     <td>{matchup.awayTeam}</td>
                     <td>{matchup.type.replace('N', ' N')}</td>
-                    <td><input type="checkbox" id={resultInputId} name={resultInputId} onChange={this.matchupResultChanged} /></td>
+                    <td>
+                        <select id={resultInputId} name={resultInputId} key={index} onChange={this.matchupResultChanged}>
+                        {resultOptions}
+                    </select>
+                    </td>
                 </tr>
             })
             
