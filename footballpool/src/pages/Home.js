@@ -1,5 +1,6 @@
 import React from "react"
 import {PoolDataContext} from '../dataContext'
+import {Link} from 'react-router-dom';
 
 class Home extends React.Component {
     
@@ -17,7 +18,6 @@ class Home extends React.Component {
 
         const {currentSeason, currentUser, dataAccess} = this.context
 
-        //let seasonMatchups = await dataAccess.getMatchups(currentSeason.id)
         let seasonLeagues = await dataAccess.getCurrentSeasonLeagues(currentSeason.id)
         let userPicks = await dataAccess.getUserPicksForLeagues(currentUser.id, seasonLeagues.map(league => league.id))
         let userLeagues = [], joinableLeagues = []
@@ -35,7 +35,7 @@ class Home extends React.Component {
                     name: league.name,
                     id: league.id,
                     type: league.type,
-                    place: 99 // TODO
+                    place: 99 // TODO: calculate this
                 })
             } else {
 
@@ -75,6 +75,7 @@ class Home extends React.Component {
                 <td>{league.name}</td>
                 <td>{league.type}</td>
                 <td>{league.place}</td>
+                <td><Link to={`/leaguedetails/${league.id}`}>Details</Link></td>
             </tr> 
             })
 
@@ -83,6 +84,7 @@ class Home extends React.Component {
                 return <tr key={index}>
                     <td>{league.name}</td>
                     <td>{league.type}</td>
+                    <td><Link to={`/joinleague/${league.id}`}>Join League</Link></td>
                 </tr>
             })
 
@@ -97,6 +99,7 @@ class Home extends React.Component {
                                 <th>League</th>
                                 <th>Type</th>
                                 <th>Place</th>
+                                <th></th>
                             </tr>
                             {userLeagueRows}
                         </tbody>
@@ -108,6 +111,7 @@ class Home extends React.Component {
                             <tr>
                                 <th>League</th>
                                 <th>Type</th>
+                                <th></th>
                             </tr>
                             {joinableLeagueRows}
                         </tbody>
