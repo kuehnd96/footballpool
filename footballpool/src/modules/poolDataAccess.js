@@ -330,6 +330,18 @@ export default function PoolDataAccess() {
         return formatPicks(picksResponse.items)
     }
 
+    async function getPicksForLeague(leagueId) {
+
+         // load all picks for all users in a league
+         let picksResponse = await Client.getEntries({
+            content_type: 'pick',
+            'fields.leagueid.sys.contentType.sys.id': 'league',
+            'fields.leagueid.fields.id': leagueId
+         })
+
+         return formatPicks(picksResponse.items)
+    }
+
     function formatPicks(items) {
         let picks = items.map(item => {
             return {...item.fields}
@@ -354,6 +366,7 @@ export default function PoolDataAccess() {
         updateMatchups,
         addPicks,
         getUserPicksForLeagues,
+        getPicksForLeague,
         formatPicks,
         formatLeagues,
         formatMatchups,
