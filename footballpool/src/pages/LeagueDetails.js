@@ -21,29 +21,34 @@ class LeagueDetails extends React.Component {
 
         leaguePicks.forEach(pick => {
 
-            let userId = pick.userid.fields.userid
-            let userEntry = userPickHash.get(userId)
+            let userId = pick.userid.fields.id
+            let userEntry
             
             // if user isn't in hash yet
-            if (userEntry === undefined) {
+            if (userPickHash.has(userId)) {
+            
+                userEntry = userPickHash.get(userId)
+            }
+            else {
 
                 userEntry = {
 
                     userId: userId,
-                    firstName: pick.userid.fields.firstName,
-                    lastName: pick.userid.fields.lastName,
+                    firstName: pick.userid.fields.firstname,
+                    lastName: pick.userid.fields.lastname,
                     picks: []
                 }
 
-                userPickHash.set(userId, userEntry)
+                userPickHash = userPickHash.set(userId, userEntry)
             }
 
             userEntry.picks.push(pick)
         })
 
-        //let calculations = LeagueCalculations()
-        //let leagueUserDetails = calculations.calculateLeagueStats(userPickHash.values)
-        console.log(userPickHash.keys)
+        let calculations = LeagueCalculations()
+        let leagueUserDetails = calculations.calculateLeagueStats(userPickHash)
+
+        console.log(leagueUserDetails.sort(calculations.sortLeagueUserTotalsByTotalPointsDescending))
     }
 
     static contextType = PoolDataContext

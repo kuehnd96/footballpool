@@ -1,22 +1,23 @@
 
 export default function LeagueCalculations() {
     
-    function calculateLeagueStats(leagueUserPicks) {
+    function calculateLeagueStats(leagueUserPickMap) {
 
         let leagueUserTotals = []
         
         // Foreach user in the league
-        leagueUserPicks.forEach((userPicks => {
+        leagueUserPickMap.forEach((value, key) => {
         
             let leagueUserStatus = {
                 
                 totalPoints: 0,
                 weekResults: [],
-                userName: userPicks.firstName + userPicks.lastName
+                userName: value.firstName + value.lastName,
+                userId: key
             }
             
             // Foreach of the user's picks
-            userPicks.picks.foreach((pick => {
+            value.picks.forEach((pick => {
 
                 let points = 0
                 
@@ -41,7 +42,7 @@ export default function LeagueCalculations() {
 
             leagueUserTotals.push(leagueUserStatus)
             
-        }))
+        })
 
         return leagueUserTotals;
     }
