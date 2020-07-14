@@ -17,7 +17,7 @@ export default function LeagueCalculations() {
             }
             
             // Foreach of the user's picks
-            value.picks.forEach((pick => {
+            value.picks.sort(sortPicksByWeekAscending).forEach((pick => {
 
                 let points = 0
                 
@@ -45,6 +45,21 @@ export default function LeagueCalculations() {
         })
 
         return leagueUserTotals;
+    }
+
+    function sortPicksByWeekAscending(a, b) {
+        const weekA = a.matchupid.fields.week
+        const weekB = b.matchupid.fields.week
+
+        let comparison = 0
+
+        if (weekA > weekB) {
+            comparison = 1
+        } else if (weekA < weekB) {
+            comparison = -1
+        }
+        
+        return comparison
     }
 
     function sortLeagueUserTotalsByTotalPointsDescending(a, b) {

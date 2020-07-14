@@ -8,7 +8,7 @@ class LeagueDetails extends React.Component {
 
         // Coming from react router
         this.state = {
-            leagueid: this.props.match.params.leagueid
+            leagueId: this.props.match.params.leagueid
         }
     }
 
@@ -55,7 +55,7 @@ class LeagueDetails extends React.Component {
     
     render() {
         return (
-        <h1>League Details for league {this.state.leagueid}</h1>
+        <h1>League Details for league {this.state.leagueId}</h1>
         )
     }
 }
