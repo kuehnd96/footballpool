@@ -12,7 +12,7 @@ export default function LeagueCalculations() {
                 
                 totalPoints: 0,
                 weekResults: [],
-                userName: value.firstName + value.lastName,
+                userName: value.firstName + ' ' + value.lastName,
                 userId: key
             }
             
