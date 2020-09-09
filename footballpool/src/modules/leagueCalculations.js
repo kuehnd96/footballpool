@@ -1,8 +1,42 @@
 
 export default function LeagueCalculations() {
     
-    function calculateLeagueStats(leagueUserPickMap) {
+    function createLeagueUserHash(leaguePicks) {
 
+        let userPickHash = new Map() // hash the picks by user
+
+        leaguePicks.forEach(pick => {
+
+            let userId = pick.userid.fields.id
+            let userEntry
+            
+            // if user isn't in hash yet
+            if (userPickHash.has(userId)) {
+            
+                userEntry = userPickHash.get(userId)
+            }
+            else {
+
+                userEntry = {
+
+                    userId: userId,
+                    firstName: pick.userid.fields.firstname,
+                    lastName: pick.userid.fields.lastname,
+                    picks: []
+                }
+
+                userPickHash = userPickHash.set(userId, userEntry)
+            }
+
+            userEntry.picks.push(pick)
+        })
+
+        return userPickHash
+    }
+    
+    function calculateLeagueStats(leaguePicks) {
+
+        let leagueUserPickMap = createLeagueUserHash(leaguePicks)
         let leagueUserTotals = []
         
         // Foreach user in the league
@@ -47,6 +81,21 @@ export default function LeagueCalculations() {
         return leagueUserTotals;
     }
 
+    /*
+    function calculateUserPlaceInLeague(leaguePicks, userId) {
+
+        let standings = calculateLeagueStats(leaguePicks)
+        let userStanding = standings.find(standing => standing.userId === userId)
+
+        if (userStanding !== undefined) {
+
+            return standings.indexOf(userStanding) + 1
+        }
+
+        return 0
+    }
+    */
+
     function sortPicksByWeekAscending(a, b) {
         const weekA = a.matchupid.fields.week
         const weekB = b.matchupid.fields.week
@@ -79,6 +128,7 @@ export default function LeagueCalculations() {
 
     return  Object.freeze({
         calculateLeagueStats,
+        //calculateUserPlaceInLeague,
         sortLeagueUserTotalsByTotalPointsDescending
       });
 }
