@@ -78,10 +78,9 @@ export default function LeagueCalculations() {
             
         })
 
-        return leagueUserTotals;
+        return leagueUserTotals.sort(sortLeagueUserTotalsByTotalPointsDescending);
     }
 
-    /*
     function calculateUserPlaceInLeague(leaguePicks, userId) {
 
         let standings = calculateLeagueStats(leaguePicks)
@@ -94,7 +93,6 @@ export default function LeagueCalculations() {
 
         return 0
     }
-    */
 
     function sortPicksByWeekAscending(a, b) {
         const weekA = a.matchupid.fields.week
@@ -128,7 +126,6 @@ export default function LeagueCalculations() {
 
     return  Object.freeze({
         calculateLeagueStats,
-        //calculateUserPlaceInLeague,
-        sortLeagueUserTotalsByTotalPointsDescending
+        calculateUserPlaceInLeague
       });
 }

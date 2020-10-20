@@ -1,6 +1,7 @@
 import React from "react"
 import {PoolDataContext} from '../dataContext'
 import {Link} from 'react-router-dom';
+import LeagueCalculations from '../modules/leagueCalculations'
 
 class Home extends React.Component {
     
@@ -22,7 +23,7 @@ class Home extends React.Component {
         let userPicks = await dataAccess.getUserPicksForLeagues(currentUser.id, seasonLeagues.map(league => league.id))
         let userLeagues = [], joinableLeagues = []
         
-        seasonLeagues.forEach(league => {
+        seasonLeagues.forEach(/*async*/ league => {
 
             // Is user participating in the league?
             if (userPicks.some((pick) => {
@@ -30,12 +31,17 @@ class Home extends React.Component {
                 return pick.leagueid.fields.id === league.id
             })) {
 
+                // FUTURE: Calculate weekly standings outside of this application since this won't scale
+                //let leaguePicks = await dataAccess.getPicksForLeague(this.state.leagueId)
+                //let calculations = LeagueCalculations()
+                //let userPlaceInLeague = calculations.calculateUserPlaceInLeague(leaguePicks, currentUser.id)
+                
                 userLeagues.push({
 
                     name: league.name,
                     id: league.id,
                     type: league.type,
-                    place: 99 // TODO: calculate this
+                    place: 99//userPlaceInLeague
                 })
             } else {
 
@@ -57,7 +63,7 @@ class Home extends React.Component {
     }
 
     static contextType = PoolDataContext
-    
+
     render() {
         if (this.state.isLoading)
         {
