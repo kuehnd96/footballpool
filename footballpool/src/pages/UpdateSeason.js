@@ -112,7 +112,7 @@ class UpdateSeason extends React.Component {
                     <td>{matchup.awayTeam}</td>
                     <td>{matchup.type.replace('N', ' N')}</td>
                     <td>
-                        <select id={resultInputId} name={resultInputId} key={index} onChange={this.matchupResultChanged}>
+                        <select id={resultInputId} name={resultInputId} key={index} value={matchup.didHomeTeamWin} onChange={this.matchupResultChanged}>
                         {resultOptions}
                     </select>
                     </td>
