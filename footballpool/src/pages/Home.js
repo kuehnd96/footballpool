@@ -23,7 +23,9 @@ class Home extends React.Component {
         let userPicks = await dataAccess.getUserPicksForLeagues(currentUser.id, seasonLeagues.map(league => league.id))
         let userLeagues = [], joinableLeagues = []
         
-        seasonLeagues.forEach(/*async*/ league => {
+        // NOTE: Tried using seasonLeagues.forEach here but the async anonymous method had the call to this.setState() at the end
+        //        of this method running before all members of seasonLeagues could be processed
+        for (const league of seasonLeagues) {
 
             // Is user participating in the league?
             if (userPicks.some((pick) => {
@@ -31,17 +33,17 @@ class Home extends React.Component {
                 return pick.leagueid.fields.id === league.id
             })) {
 
-                // FUTURE: Calculate weekly standings outside of this application since this won't scale
-                //let leaguePicks = await dataAccess.getPicksForLeague(this.state.leagueId)
-                //let calculations = LeagueCalculations()
-                //let userPlaceInLeague = calculations.calculateUserPlaceInLeague(leaguePicks, currentUser.id)
+                // FUTURE: Calculate weekly standings outside of this application since calculating this here won't scale
+                let leaguePicks = await dataAccess.getPicksForLeague(league.id)
+                let calculations = LeagueCalculations()
+                let userPlaceInLeague = calculations.calculateUserPlaceInLeague(leaguePicks, currentUser.id)
                 
                 userLeagues.push({
 
                     name: league.name,
                     id: league.id,
                     type: league.type,
-                    place: 99//userPlaceInLeague
+                    place: userPlaceInLeague
                 })
             } else {
 
@@ -52,7 +54,7 @@ class Home extends React.Component {
                     type: league.type
                 })
             }
-        })
+        }
 
         this.setState({
 
