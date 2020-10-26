@@ -8,7 +8,7 @@ class LeagueDetails extends React.Component {
 
         // Coming from react router
         this.state = {
-            leagueId: this.props.match.params.leagueid,
+            leagueId: this.props.match.params.leagueid, // Matt: don't put in state what you don't have to
             league: null,
             leagueStandings: null,
             isLoading: true
@@ -39,6 +39,7 @@ class LeagueDetails extends React.Component {
         
         if (this.state.isLoading)
         {
+            // Matt: Create components for this markup and the markup in 53?
             return (
                 <div>
                     <h1>Loading...</h1>
@@ -54,8 +55,9 @@ class LeagueDetails extends React.Component {
                 </div>
             )
         }
-        else {
-
+        else { // Matt: If ... else statements are good indications of separate components
+            // Matt: Too much in state can indicate a need to break out more components
+            // Matt: Style/readability advantage to put this in its own component
             let leagueStandingRows = this.state.leagueStandings.map((leagueManager, index) => {
 
                 var weekResults = leagueManager.weekResults.map((result, index) => {
