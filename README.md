@@ -53,3 +53,7 @@ I took last week off from coding. I think I needed it to come back to it this we
 ### 9/7/2020
 
 I had to take some time away from my React training after making some great progress on this in late June and early July. The break was for 1) getting situated at a new client at work where I will be learning a bunch of new tech and 2) to research, rehearse, and give a talk to my co-workers on the basics of modern authentication in software development. I am back now and looking to finish this application ... and the React training I started a year ago (almost to the day). Before November I also plan to 1) secure this application with an authorization code OpenId Connect flow using the free tier of Auth0 and 2) set up CI and CD of this application on Azure DevOps. I like my chance of getting this done in the next 7 or so weeks. Coding on a Monday night again feels good.
+
+### 10/22/2020
+
+I am happy to say my initial React training is complete with the completion of my first unguided React application. I started my React training about 13 months ago and I have had a lot of fun. There were some gaps in the training (car accident (no injuries), client work, a technical talk, family duties, new NAS setup, etc.) but I achieved my goal of being able to contribute on a React project. I plan to perform more exercises on this application to learn more in the coming months.
