@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "expect": "^25.1.0",
-    "mocha": "^7.1.0",
+    "mocha": "^10.3.0",
     "react-addons-test-utils": "^15.6.2"
   }
 }
